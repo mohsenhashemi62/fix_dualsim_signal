@@ -13,7 +13,7 @@ This is fix for daul sim  for ROM CONTAIN SIGNAL FIX BY PHH .
 In FAILING CASE :
 
 - If fix fail check logs and see which slot was killed .
-- In case of failing it should be different slot from your choice ex : u chose 2 and 1 killed.
+- In case of failing it should be different slot from your choice ex : u chose 2 and 1 was  killed.
 - Try again
 
 
