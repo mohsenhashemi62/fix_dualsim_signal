@@ -1,6 +1,6 @@
 echo 'Welcome to fix simcard signal ' 
 echo "--------------------------------"
-Note : Wait 30s to 1m  after script done 
+echo "Note : Wait 30s to 1m  after script done"
 sleep 10 
 echo "Starting FIX :"
 n1=$(ps -A | grep "rild" |awk '{print $2}' | sed '$d')
