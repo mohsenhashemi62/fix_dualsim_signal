@@ -1,0 +1,39 @@
+echo 'Welcome to fix simcard signal ' 
+echo "--------------------------------"
+echo "\n NOTES : \n"
+echo "- Fixing Take 2:3 minutes .\n"
+echo "- U SHOULD WAIT NEARLY(20:30S)AFTER CLOSING SCRIPT\n\n"
+echo "\nIn FAILING CASE :\n"
+echo "1- if fix fail check logs and see which slot was killed ."
+echo "2- in case of failing it should be different slot from your choice ex : u chose 2 and 1 killed."
+echo "3- try again"
+sleep 10 
+clear 
+echo "Starting FIX :"
+echo "ENTER SLOT WHICH HAS SIGNAL : \n"
+read i
+echo "Fixing"
+if [ "$i" == '1' ]
+then
+kill $(ps -A | grep "rild" |awk '{print $2}' | sed '$d')
+kill $n
+elif [ "$i" == '2' ]
+then 
+kill $(ps -A | grep "rild" |awk '{print $2}' | sed '1 d')
+else 
+echo 'F'
+exit 
+fi
+while [ 1 ]
+do
+p=$(ps -A |grep com.android.phone |grep -o "SyS")
+if [[ "$p" = 'SyS' ]]
+then
+sleep 4
+echo "Done"
+pkill -f com.android.phone
+exit 
+else
+echo "wait"
+fi 
+done
