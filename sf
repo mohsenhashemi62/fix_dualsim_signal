@@ -30,6 +30,8 @@ fi
 echo "$sco" "$sct" "slot$i"
 
 #######
+k="slot$i"
+echo "$k"
 while [ 1 ]
 do
 p=$(ps -A |grep com.android.phone |grep -o "SyS")
