@@ -1,26 +1,28 @@
 echo 'Welcome to fix simcard signal ' 
 echo "--------------------------------"
-echo "\n NOTES : \n"
-echo "- Fixing Take 2:3 minutes .\n"
-echo "- U SHOULD WAIT NEARLY(20:30S)AFTER CLOSING SCRIPT\n\n"
-echo "\nIn FAILING CASE :\n"
-echo "1- if fix fail check logs and see which slot was killed ."
-echo "2- in case of failing it should be different slot from your choice ex : u chose 2 and 1 killed."
-echo "3- try again"
 sleep 10 
-clear 
 echo "Starting FIX :"
-echo "ENTER SLOT WHICH HAS SIGNAL : \n"
-read i
+n1=$(ps -A | grep "rild" |awk '{print $2}' | sed '$d')
+n2=$(ps -A | grep "rild" |awk '{print $2}' | sed '1 d')
+l1=$(logcat -d -b radio *:E |grep "$n1")
+l2=$(logcat -d -b radio *:E |grep "$n2")
+c1=$(echo -n "$l1" |wc -c)
+c2=$(echo -n "$l2" |wc -c)
+if [ $c1 \< $c2 ]
+then
+i=1
+else
+i=2
+fi
 if [ "$i" == '1' ]
 then
 echo "Fixing"
-kill $(ps -A | grep "rild" |awk '{print $2}' | sed '$d')
+kill "$n1"
 sleep 2
 sco=$(logcat -d |grep "Waited one second" |grep -o 'slot[1-2]' |awk 'END { print }')
 elif [ "$i" == '2' ]
 then 
-kill $(ps -A | grep "rild" |awk '{print $2}' | sed '1 d')
+kill "$n2"
 sleep 2
 sct=$(logcat -d |grep "Waited one second" |grep -o 'slot[1-2]' |awk 'END { print }')
 else 
@@ -30,8 +32,6 @@ fi
 echo "$sco" "$sct" "slot$i"
 
 #######
-k="slot$i"
-echo "$k"
 while [ 1 ]
 do
 p=$(ps -A |grep com.android.phone |grep -o "SyS")
