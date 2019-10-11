@@ -48,12 +48,10 @@ if [[ "$sco" = "$k" ]]
 then
 echo "S1 DONE" 
 pkill -f com.android.phone
-kill $(pidof com.android.systemui)
 elif [[ "$sct" = "$k" ]]
 then
 echo "S2 DONE" 
 pkill -f com.android.phone 
-kill $(pidof com.android.systemui)
 else
 echo "Ops"
 echo "trying again"
